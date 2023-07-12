@@ -35,8 +35,10 @@ class _AllCountriesState extends State<AllCountries> {
       //     .where((country) => country['name']['common'] == val)
       //     .toList();
       filteredCountries = countries
-          .where(
-              (element) => element['name']['common'].toString().startsWith(val))
+          .where((element) => element['name']['common']
+              .toString()
+              .toLowerCase()
+              .startsWith(val.toLowerCase()))
           .toList();
     });
   }
