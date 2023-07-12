@@ -9,8 +9,10 @@ class AllCountries extends StatefulWidget {
 
 class _AllCountriesState extends State<AllCountries> {
   bool _isSearching = false;
-  Future<List> countries = Future<List>.value([]);
-  Future<List> getCountries() async {
+  List countries = [];
+  List filteredCountries = [];
+
+  getCountries() async {
     var response = await Dio().get('https://restcountries.com/v3.1/all');
     // print(response.data[1]['name']['common']);
     return response.data;
@@ -18,8 +20,25 @@ class _AllCountriesState extends State<AllCountries> {
 
   @override
   void initState() {
-    countries = getCountries();
+    getCountries().then((data) {
+      setState(() {
+        countries = filteredCountries = data;
+      });
+    });
     super.initState();
+  }
+
+  void _filterCountries(String val) {
+    print(val);
+    setState(() {
+      // filteredCountries = countries
+      //     .where((country) => country['name']['common'] == val)
+      //     .toList();
+      filteredCountries = countries
+          .where(
+              (element) => element['name']['common'].toString().startsWith(val))
+          .toList();
+    });
   }
 
   @override
@@ -29,9 +48,12 @@ class _AllCountriesState extends State<AllCountries> {
         appBar: AppBar(
           backgroundColor: Colors.pink,
           title: _isSearching
-              ? const TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
+              ? TextField(
+                  onChanged: (value) {
+                    _filterCountries(value);
+                  },
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
                       hintText: 'Search Countries Here',
                       hintStyle: TextStyle(color: Colors.white)),
                 )
@@ -42,6 +64,7 @@ class _AllCountriesState extends State<AllCountries> {
                     onPressed: () {
                       setState(() {
                         _isSearching = false;
+                        filteredCountries = countries;
                       });
                     },
                     icon: const Icon(Icons.cancel_outlined))
@@ -55,39 +78,35 @@ class _AllCountriesState extends State<AllCountries> {
           ],
         ),
         body: Container(
-          padding: const EdgeInsets.all(5),
-          child: FutureBuilder<List>(
-            future: countries, // a previously-obtained Future<String> or null
-            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemBuilder: (BuildContext context, int i) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Country(snapshot.data![i]),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 10),
-                          child: Text(
-                            snapshot.data![i]['name']['common'],
-                            style: const TextStyle(fontSize: 20),
+            padding: const EdgeInsets.all(5),
+            child: filteredCountries.length > 0
+                ? ListView.builder(
+                    itemBuilder: (BuildContext context, int i) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  Country(filteredCountries[i]),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 10),
+                            child: Text(
+                              filteredCountries[i]['name']['common'],
+                              style: const TextStyle(fontSize: 20),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: snapshot.data!.length,
-                );
-              }
-              return const Center(child: CircularProgressIndicator());
-            },
-          ),
-        ));
+                      );
+                    },
+                    itemCount: filteredCountries.length,
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  )));
   }
 }
