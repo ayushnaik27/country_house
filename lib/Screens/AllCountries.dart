@@ -43,6 +43,8 @@ class _AllCountriesState extends State<AllCountries> {
     });
   }
 
+  bool _isFirst= true;
+
   @override
   Widget build(BuildContext context) {
     // print(countries);
@@ -73,6 +75,7 @@ class _AllCountriesState extends State<AllCountries> {
                 : IconButton(
                     onPressed: () {
                       setState(() {
+                        _isFirst=false;
                         _isSearching = true;
                       });
                     },
@@ -81,7 +84,7 @@ class _AllCountriesState extends State<AllCountries> {
         ),
         body: Container(
             padding: const EdgeInsets.all(5),
-            child: filteredCountries.length > 0
+            child: filteredCountries.isNotEmpty
                 ? ListView.builder(
                     itemBuilder: (BuildContext context, int i) {
                       return GestureDetector(
@@ -93,22 +96,75 @@ class _AllCountriesState extends State<AllCountries> {
                             ),
                           );
                         },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 10),
-                            child: Text(
-                              filteredCountries[i]['name']['common'],
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        ),
+                        child: CountryTile(country: filteredCountries[i]),
                       );
                     },
                     itemCount: filteredCountries.length,
                   )
-                : const Center(
-                    child: CircularProgressIndicator(),
+                :  Center(
+                    child: _isFirst ? const CircularProgressIndicator() : const Text('No such country'),
                   )));
+  }
+}
+
+
+class CountryTile extends StatelessWidget {
+  const CountryTile({
+    super.key,
+    required this.country,
+  });
+
+  final Map country;
+
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      width: double.infinity,
+      child: Stack(fit: StackFit.expand, children: [
+        const Card(
+          color: Colors.white,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          ),
+        ),
+        Positioned(
+          bottom: 25,
+          left: 15,
+          child: CircleAvatar(
+            radius: 30,
+            backgroundImage: NetworkImage(country['flags']['png']),
+          ),
+        ),
+        Positioned(
+          left: 90,
+          top: 20,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                country['name']['common'],
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                'Capital: ${country['capital']}',
+                style: TextStyle(color: Colors.grey.shade400),
+                
+              ),
+              Text(
+                'Population: ${country['population']}',
+                style: TextStyle(color: Colors.grey.shade400),
+                
+              ),
+              
+            ],
+          ),
+        ),
+      ]),
+    );
   }
 }
