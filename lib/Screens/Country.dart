@@ -1,4 +1,6 @@
+import 'package:country_house/widgets/DefaultRichText.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Country extends StatelessWidget {
@@ -9,6 +11,13 @@ class Country extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Uri url = Uri.parse(country['maps']['googleMaps']);
+    final String _capital = country['capital'][0];
+    final String _timezone = country['timezones'][0];
+    final String _population =
+        NumberFormat('#,##,###').format(country['population']);
+    final String _area = NumberFormat('#,##,###').format(country['area']);
+    final String _officialName = country['name']['official'];
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.pink,
@@ -25,45 +34,31 @@ class Country extends StatelessWidget {
                 style: const TextStyle(fontSize: 30),
               ),
               const SizedBox(height: 10),
-              const Text('Flag: '),
+              const Text('Flag: ',style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 5),
               Image(
                 image: NetworkImage(country['flags']['png']),
               ),
               const SizedBox(height: 10),
-              Text('Official Name: ${country['name']['official']}'),
-              Text(country['maps']['openStreetMaps']),
-
-
+              
+              
+              DefaultRichText(boldText: 'Official Name: ',valueText: _officialName),
+              DefaultRichText(boldText: 'Capital: ',valueText: _capital),
+              DefaultRichText(boldText: 'Population: ',valueText: _population),
+              DefaultRichText(boldText: 'Area: ',valueText: '$_area square kilometers'),
+              DefaultRichText(boldText: 'Timezone: ',valueText: _timezone),
               ElevatedButton(
                 onPressed: () async {
-                  if (!await launchUrl(url,mode: LaunchMode.inAppWebView)) {
-                    throw Exception(
-                        'Could not launch $url');
+                  if (!await launchUrl(url, mode: LaunchMode.inAppWebView)) {
+                    throw Exception('Could not launch $url');
                   }
                 },
-                child: Text('Show on Map'),
+                child: const Text('Show on Map'),
               ),
-
-              
             ],
           ),
         ));
   }
 }
 
-class CustomCard extends StatelessWidget {
-  final String text;
-  const CustomCard({
-    required this.text,
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: Center(child: Text(text)),
-    );
-  }
-}
