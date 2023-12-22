@@ -20,14 +20,12 @@ Country House App is a Flutter application that allows users to search for count
 - REST API (All Countries API)
 
 ## Screenshots
-
-![Screenshot 1](screenshots/screenshot1.jpg)
-![Screenshot 2](screenshots/screenshot2.jpg)
+![screenshot1](https://github.com/ayushnaik27/country_house/assets/123661537/88880d14-680a-4249-8d42-e8d59830e6d0)
+![screenshot2](https://github.com/ayushnaik27/country_house/assets/123661537/01456737-67a5-4c29-9347-fcec67b5323b)
 
 ## How to Run
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/ayushnaik27/country-house-app.git
 2. Navigate to the project folder
