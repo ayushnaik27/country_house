@@ -30,7 +30,6 @@ Country House App is a Flutter application that allows users to search for count
 
    ```bash
    git clone https://github.com/ayushnaik27/country-house-app.git
-
 2. Navigate to the project folder
    ```bash
    cd country-house-app
@@ -40,13 +39,6 @@ Country House App is a Flutter application that allows users to search for count
 4. Navigate to the project folder
    ```bash
    flutter run
-
-
-
-
-
-
-
 ## API Used
 
 The app uses the [All Countries API](https://restcountries.com/v3.1/all) to fetch country data.
