@@ -1,16 +1,32 @@
-# country_house
+# Country House App
 
-A new Flutter project.
+![App Demo](demo.gif)
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
+Country House App is a Flutter application that allows users to search for countries and explore their details. It leverages a REST API to fetch information about countries.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Search for countries by name
+- View details of a selected country
+- Access information like capital, population, languages, and more
+- User-friendly interface with smooth navigation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies Used
+
+- Flutter
+- Dart
+- REST API (All Countries API)
+
+## Screenshots
+
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+
+## How to Run
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/country-house-app.git
