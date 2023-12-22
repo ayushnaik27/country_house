@@ -41,7 +41,7 @@ Country House App is a Flutter application that allows users to search for count
    flutter run
 ## API Used
 
-The app uses the [All Countries API](https://restcountries.com/v3.1/all) to fetch country data.
+The app uses the [All Countries API](https://restcountries.com) to fetch country data.
 
 ## Contributions
 
