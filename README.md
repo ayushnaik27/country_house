@@ -26,7 +26,6 @@ Country House App is a Flutter application that allows users to search for count
 ## How to Run
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/ayushnaik27/country-house-app.git
 2. Navigate to the project folder
