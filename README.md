@@ -10,8 +10,8 @@ Country House App is a Flutter application that allows users to search for count
 
 - Search for countries by name
 - View details of a selected country
-- Access information like capital, population, languages, and more
-- User-friendly interface with smooth navigation
+- Access information like capital, population, and more
+- See countries on map
 
 ## Technologies Used
 
@@ -20,9 +20,8 @@ Country House App is a Flutter application that allows users to search for count
 - REST API (All Countries API)
 
 ## Screenshots
-
-![Screenshot 1](screenshots/screenshot1.jpg)
-![Screenshot 2](screenshots/screenshot2.jpg)
+![screenshot1](https://github.com/ayushnaik27/country_house/assets/123661537/88880d14-680a-4249-8d42-e8d59830e6d0)
+![screenshot2](https://github.com/ayushnaik27/country_house/assets/123661537/01456737-67a5-4c29-9347-fcec67b5323b)
 
 ## How to Run
 
